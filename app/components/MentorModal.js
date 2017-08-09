@@ -16,6 +16,8 @@ class MentorModal extends React.Component {
             chosenTopic: null
         };
         this.chooseNode = this.chooseNode.bind(this);
+        this.chooseMongo = this.chooseMongo.bind(this);
+        this.chooseCSharp = this.chooseCSharp.bind(this);
         this.displayQuiz = this.displayQuiz.bind(this);
     }
 
@@ -34,7 +36,7 @@ class MentorModal extends React.Component {
     }
 
     chooseCSharp() {
-        this setState({
+        this.setState({
             chosenTopic: 'CSharp'
         });
         this.displayQuiz();
