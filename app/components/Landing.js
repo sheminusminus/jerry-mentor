@@ -8,14 +8,41 @@ import {Grid, Row, Col} from 'react-bootstrap';
 
 // components
 import MenteeModal from './MenteeModal';
+import MentorModal from './MentorModal';
+import UserAuth from './UserAuth';
 
 class Main extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            authModalOpen: false
+            authModalOpen: false,
+            userModalOpen: false,
+            userType: '',
+            authResult: {}
         };
+        this.toggleUserModal = this.toggleUserModal.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
+        this.toggleMentorAuthFlow = this.toggleMentorAuthFlow.bind(this);
+        this.toggleMenteeAuthFlow = this.toggleMenteeAuthFlow.bind(this);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (!this.props.isAuthenticated && nextProps.isAuthenticated) {
+            this.setState({
+                userModalOpen: true
+            });
+        }
+    }
+
+    getProfile(cb) {
+      let accessToken = this.state.authResult.accessToken;
+      console.log(this.lock);
+    }
+
+    toggleUserModal() {
+        this.setState({
+            userModalOpen:  !this.state.userModalOpen
+        });
     }
 
     toggleModal() {
@@ -23,6 +50,24 @@ class Main extends React.Component {
         this.setState({
             authModalOpen:  !this.state.authModalOpen
         });
+    }
+
+    toggleMentorAuthFlow() {
+        this.setState({
+            userType: 'MENTOR'
+        }, function() {
+            this.toggleModal();
+        });
+        //this.toggleAuthZero();
+    }
+
+    toggleMenteeAuthFlow() {
+        this.setState({
+            userType: 'MENTEE'
+        }, function() {
+            this.toggleModal();
+        });
+        //this.toggleAuthZero();
     }
 
     render() {
@@ -63,8 +108,8 @@ class Main extends React.Component {
                             <area target="" alt="" title="" href="" coords="353,390,83" shape="circle"/>
                             <area target="" alt="" title="" href="" coords="894,386,78" shape="circle"/>
                         </map>
-                       <button className="mentor-img-left" onClick={this.toggleModal} />
-                       <button className="mentor-img-right" onClick={this.toggleModal} />
+                       <button className="mentor-img-left" onClick={this.toggleMenteeAuthFlow} />
+                       <button className="mentor-img-right" onClick={this.toggleMentorAuthFlow} />
                     </div>
                 </header>
 
@@ -244,15 +289,33 @@ class Main extends React.Component {
                     <a id="to-top" href="#top" className="btn btn-dark btn-lg"><i className="fa fa-chevron-up fa-fw fa-1x"></i></a>
                 </footer>
 
+
+                <UserAuth
+                    setUser={this.props.setUser}
+                    open={this.state.authModalOpen && !this.props.isAuthenticated}
+                    userType={this.state.userType} />
+
+                
+
+                <MentorModal
+                    close={this.toggleUserModal}
+                    finishQuiz={this.props.finishQuiz}
+                    isOpen={this.state.userModalOpen && this.props.isAuthenticated && this.state.userType === 'MENTOR'} />
+
                 <MenteeModal
-                    isOpen={this.state.authModalOpen}
-                    toggleModal={this.toggleModal}
-                    setAuth={this.props.setAuth}
-                    isAutth={this.props.isAuthenticated} />
+                    close={this.toggleUserModal}
+                    finishQuiz={this.props.finishQuiz}
+                    isOpen={this.state.userModalOpen && this.props.isAuthenticated && this.state.userType === 'MENTEE'} />
+                }
 
             </div>
         );
     }
+}
+
+Main.defaultProps = {
+    clientId: 'ofVihEf0O4cOZWHVoXBz58PtCWH46Tse',
+    domain: 'riley272.auth0.com'
 }
 
 export default Main;
