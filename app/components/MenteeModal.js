@@ -9,6 +9,7 @@ import Home from './home';
 
 import NodeQuiz from './quizzes/eenode';
 import MongoQuiz from './quizzes/eemongo';
+import CSharpQuiz from './quizzes/eec';
 
 class MenteeModal extends React.Component {
     constructor(props)  {
@@ -19,6 +20,7 @@ class MenteeModal extends React.Component {
         };
         this.chooseNode = this.chooseNode.bind(this);
         this.chooseMongo = this.chooseMongo.bind(this);
+        this.chooseCSharp = this.chooseCSharp.bind(this);
         this.displayQuiz = this.displayQuiz.bind(this);
     }
 
@@ -28,6 +30,13 @@ class MenteeModal extends React.Component {
         });
         this.displayQuiz();
     }
+
+    chooseCSharp() {
+        this.setState({
+            chosenTopic: 'CSharp'
+        });
+        this.displayQuiz();
+    } 
 
     chooseNode() {
         this.setState({
@@ -88,6 +97,9 @@ class MenteeModal extends React.Component {
                 <button onClick={this.chooseMongo}>
                     Mongo
                 </button>
+                <button onClick={this.chooseCSharp}>
+                    c#
+                </button>
             </div>                     
         );
     }
@@ -101,6 +113,11 @@ class MenteeModal extends React.Component {
         } else if (this.state.chosenTopic === 'MONGO') {
             return (
                 <MongoQuiz 
+                    finishQuiz={this.props.finishQuiz} />
+            );
+        } else if (this.state.chosenTopic === 'CSharp') {
+            return (
+                <CSharpQuiz
                     finishQuiz={this.props.finishQuiz} />
             );
         }

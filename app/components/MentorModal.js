@@ -26,6 +26,20 @@ class MentorModal extends React.Component {
         this.displayQuiz();
     }
 
+    chooseMongo(){
+        this.setState({
+            chosenTopic: 'MONGO'
+        });
+        this.displayQuiz();
+    }
+
+    chooseCSharp() {
+        this setState({
+            chosenTopic: 'CSharp'
+        });
+        this.displayQuiz();
+    }
+
     displayQuiz() {
         this.setState({
             showQuiz: true
@@ -43,6 +57,9 @@ class MentorModal extends React.Component {
                 <button>
                     Mongo
                 </button>
+                <button>
+                    C#
+                </button>
             </div>                     
         );
     }    
@@ -56,6 +73,11 @@ class MentorModal extends React.Component {
         } else if (this.state.chosenTopic === 'MONGO') {
             return (
                 <MongoQuiz 
+                    finishQuiz={this.props.finishQuiz} />
+            );
+        } else if (this.state.chosenTopic === 'CSharp') {
+            return (
+                <CSharpQuiz
                     finishQuiz={this.props.finishQuiz} />
             );
         }
