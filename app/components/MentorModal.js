@@ -7,6 +7,8 @@ import Header from './header';
 import Home from './home';
 
 import NodeQuiz from './quizzes/tornode';
+import CSharpQuiz from './quizzes/torc';
+import MongoQuiz from './quizzes/tormongo';
 
 class MentorModal extends React.Component {      
     constructor(props)  {
