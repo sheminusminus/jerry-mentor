@@ -1,3 +1,4 @@
+
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
@@ -162,9 +163,9 @@ app.get('/users', (req, res) => {
 
   let queryString = '';
   if (userType === 'MENTOR') {
-    queryString = `SELECT * FROM mentors WHERE email = '${email}'`;
+    queryString = `SELECT * FROM mentors WHERE email = '${email}' AND pass = '${password}'`;
   } else {
-    queryString = `SELECT * FROM mentees WHERE email = '${email}'`;
+    queryString = `SELECT * FROM mentees WHERE email = '${email}' AND pass = '${password}'`;
   }
 
   pool.query(queryString,

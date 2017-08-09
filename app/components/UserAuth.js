@@ -1,3 +1,4 @@
+
 import React from 'react'; //import React, { Component } from 'react';//
 import Modal from 'react-modal';
 import axios from 'axios';
@@ -48,8 +49,10 @@ class UserAuth extends React.Component {
 
     handleSignup(evt) {
         evt.preventDefault();
-        console.log(this.state, this.props);
-        axios.post('/users', {
+
+      if (!this.state.email || !this.state.password || !this.state.first || !this.state.last) return;
+
+      axios.post('/users', {
             first: this.state.first,
             last: this.state.last,
             email: this.state.email,
@@ -67,6 +70,9 @@ class UserAuth extends React.Component {
     handleLogin(evt) {
         const me = this;
         evt.preventDefault();
+
+        if (!this.state.email.length || !this.state.password.length) return;
+
         axios.get('/users', {
             params: {
                 email: this.state.email,
@@ -91,23 +97,27 @@ class UserAuth extends React.Component {
     }
 
     renderSignIn() {
+        const buttonDisabled = !(this.state.email.length && this.state.password.length);
+
         return (
-            <form onSubmit={this.handleLogin}>
+            <form className="login-form" onSubmit={this.handleLogin}>
                 <input type="email" placeholder="Email" value={this.state.email} onChange={this.handleEmail} />
-                <input type="password" />
-                <input type="submit" value="Go" value={this.state.password} onChange={this.handlePassword} />
+                <input type="password" placeholder="Password" value={this.state.password} onChange={this.handlePassword} />
+                <input type="submit" value="Go" disabled={buttonDisabled} />
             </form>
         );
     }
 
     renderSignUp() {
-        return (
-            <form onSubmit={this.handleSignup}>
+      const buttonDisabled = !(this.state.email && this.state.password && this.state.first && this.state.last);
+
+      return (
+            <form className="signup-form" onSubmit={this.handleSignup}>
                 <input type="email" placeholder="Email" value={this.state.email} onChange={this.handleEmail} />
-                <input type="password" placeholder="Pass" value={this.state.password} onChange={this.handlePassword} />
-                <input type="text" placeholder="First" value={this.state.first} onChange={this.handleFirst} />
-                <input type="text" placeholder="Last" value={this.state.last} onChange={this.handleLast} />
-                <input type="submit" value="Go" />
+                <input type="password" placeholder="Password" value={this.state.password} onChange={this.handlePassword} />
+                <input type="text" placeholder="First Name" value={this.state.first} onChange={this.handleFirst} />
+                <input type="text" placeholder="Last Name" value={this.state.last} onChange={this.handleLast} />
+                <input type="submit" value="Go" disabled={buttonDisabled} />
 
             </form>
         );
@@ -117,24 +127,29 @@ class UserAuth extends React.Component {
         if (this.state.authType === 'SIGN_UP') {
             return (
                 <button
+                    className="nav-button"
                     onClick={this.switchAuthType}>
-                    Go to Login
+                    Already have an account?
                 </button>
             );
         } else {
             return (
                 <button
+                    className="nav-button"
                     onClick={this.switchAuthType}>
-                    Go to Sign Up
+                    Need to sign up first?
                 </button>
             );
         }
     }
 
     render() {
+        let title = 'Welcome back! 🤙';
         let contents = null;
+
         if (this.state.authType === 'SIGN_UP') {
             contents = this.renderSignUp();
+            title = '👍 Join Mentor Connection';
         } else {
             contents = this.renderSignIn();
         }
@@ -143,11 +158,13 @@ class UserAuth extends React.Component {
 
         return (
             <Modal
-            isOpen={this.props.open}
-            contentLabel="Auth Stuff">
-            {contents}
-            <br/>
-            {switchButton}
+                isOpen={this.props.open}
+                contentLabel="Signup/Login">
+                <h4
+                    className="auth-form-title">{title}</h4>
+                {contents}
+                <br/>
+                {switchButton}
             </Modal>
         );
     }
