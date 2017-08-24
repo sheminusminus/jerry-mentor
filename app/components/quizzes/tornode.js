@@ -98,47 +98,46 @@ class NodeQuiz extends React.Component {
             return (
                 <div id="container">
                     <header>
-                        <h1>Mentor Node Quiz</h1>
+                        <h1>Node Quiz</h1>
                     </header>
                     <section>
                         <div id="results"></div>
                         <form className="quizForm" onSubmit={this.submitAnswers}>
                             <h3>1.What is Express?</h3>
      
-                            <input type="radio" className="q1" value="a" id="q1a" />a. Express is a application framework that provides a robust set of features to develop desktop based applications.<br /> 
-                            <input type="radio" className="q1" value="b" id="q2a" />b.Express is a minimal and flexible Node.js web application framework that provides a robust set of features to develop web and mobile applications.<br />
-                            <input type="radio" className="q1" value="c" id="q3a" />c.Both of the above<br />
-                            <input type="radio" className="q1" value="d" id="q4a" />d.None of the above<br />
+                            <input type="radio" className="q1" value="a" id="q1a" name="a1" onClick={this.saveA1}/>a. Express is a application framework that provides a robust set of features to develop desktop based applications.<br /> 
+                            <input type="radio" className="q1" value="b" id="q2a" name="a1" onClick={this.saveA1}/>b.Express is a minimal and flexible Node.js web application framework that provides a robust set of features to develop web and mobile applications.<br />
+                            <input type="radio" className="q1" value="c" id="q3a" name="a1" onClick={this.saveA1}/>c.Both of the above<br />
+                            <input type="radio" className="q1" value="d" id="q4a" name="a1" onClick={this.saveA1}/>d.None of the above<br />
 
                             <h3>2.Each type of Stream is an EventEmitter. </h3>
-                            <input type="radio" className="q2" value="a" id="q1a" />a.TRUE<br /> 
-                            <input type="radio" className="q2" value="b" id="q2a" />b.FALSE<br />
+                            <input type="radio" className="q2" value="a" id="q1a" name="a2" onClick={this.saveA2}/>a.TRUE<br /> 
+                            <input type="radio" className="q2" value="b" id="q2a" name="a2" onClick={this.saveA2}/>b.FALSE<br />
                             
 
                             <h3>3.Which method of fs module is used to read a file? </h3>
-                            <input type="radio" className="q3" value="a" id="q1a" />a.fs.open(path, flags[, mode], callback)<br />
+                            <input type="radio" className="q3" value="a" id="q1a" name="a3" onClick={this.saveA3}/>a.fs.open(path, flags[, mode], callback)<br />
      
-                            <input type="radio" className="q3" value="b" id="q2a" />b.fs.openFile(path, flags[, mode], callback)<br />
-                            <input type="radio" className="q3" value="a" id="q1a" />c.fs.openPath(path, flags[, mode], callback)<br /> 
-                            <input type="radio" className="q3" value="a" id="q1a" />d.fs.read(fd, buffer, offset, length, position, callback)<br /> 
+                            <input type="radio" className="q3" value="b" id="q2a" name="a3" onClick={this.saveA3}/>b.fs.openFile(path, flags[, mode], callback)<br />
+                            <input type="radio" className="q3" value="a" id="q1a" name="a3" onClick={this.saveA3}/>c.fs.openPath(path, flags[, mode], callback)<br /> 
+                            <input type="radio" className="q3" value="a" id="q1a" name="a3" onClick={this.saveA3}/>d.fs.read(fd, buffer, offset, length, position, callback)<br /> 
                             
 
                             <h3>4.Which of the following module is required for operating system specific operations?</h3>
-                            <input type="radio" className="q4" value="a" id="q1a" />a.os module<br /> 
-                            <input type="radio" className="q4" value="b" id="q2a" />b.fs module<br />
-                            <input type="radio" className="q4" value="c" id="q3a" />c.net module<br />
-                            <input type="radio" className="q4" value="d" id="q4a" />d.None of the above<br />
+                            <input type="radio" className="q4" value="a" id="q1a" name="a4" onClick={this.saveA4}/>a.os module<br /> 
+                            <input type="radio" className="q4" value="b" id="q2a" name="a4" onClick={this.saveA4}/>b.fs module<br />
+                            <input type="radio" className="q4" value="c" id="q3a" name="a4" onClick={this.saveA4}/>c.net module<br />
+                            <input type="radio" className="q4" value="d" id="q4a" name="a4" onClick={this.saveA4}/>d.None of the above<br />
 
                             <h3>5.Which of the following is true about _dirname global object </h3>
-                            <input type="radio" className="q5" value="a" id="q1a" />a.name of directory for currently executing script<br /> 
-                            <input type="radio" className="q5" value="b" id="q2a" />b.represents the resolved absolute path of code file<br />
-                            <input type="radio" className="q5" value="c" id="q3a" />c.Both of the Above<br />
-                            <input type="radio" className="q5" value="d" id="q4a" />d.None of the Above<br />
+                            <input type="radio" className="q5" value="a" id="q1a" name="a5" onClick={this.saveA5}/>a.name of directory for currently executing script<br /> 
+                            <input type="radio" className="q5" value="b" id="q2a" name="a5" onClick={this.saveA5}/>b.represents the resolved absolute path of code file<br />
+                            <input type="radio" className="q5" value="c" id="q3a" name="a5" onClick={this.saveA5}/>c.Both of the Above<br />
+                            <input type="radio" className="q5" value="d" id="q4a" name="a5" onClick={this.saveA5}/>d.None of the Above<br />
                             <br /><br />
                             <input type="submit" value="Submit Answers" />
                         </form>
                         <br/>
-                        <button>Back</button>
                     </section>
                 </div>
             );

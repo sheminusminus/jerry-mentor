@@ -51,6 +51,18 @@ const COLUMNS = [
   'first_name'
 ];
 
+function dbSelectMentor(id, cb) {
+  const queryString = `SELECT * FROM mentors WHERE mentorID=${id}`;
+
+  pool.query(queryString, cb);
+}
+
+function dbSelectMentee(id, cb) {
+  const queryString = `SELECT * FROM mentees WHERE menteeID=${id}`;
+
+  pool.query(queryString, cb);
+}
+
 app.get('/api/books', (req, res) => {
 
   const firstName = req.query.firstName;
@@ -72,6 +84,9 @@ app.get('/api/books', (req, res) => {
   pool.query(queryString,
          function(err, rows, fields) {
           if (err) throw err;
+
+          const id = rows.insertId;
+
 
           if (rows.length > 0){
             res.json(
@@ -172,20 +187,8 @@ app.get('/users', (req, res) => {
          function(err, rows, fields) {
           if (err) throw err;
           console.log(rows);
-          if (rows.length > 0){
-            // res.json(
-            //   rows.map((entry) => {
-            //     const e = {};
-            //     COLUMNS.forEach((c) => {
-            //       e[c] = entry[c];
-            //     });
-            //     console.log(e);
-            //     })
-            //   );
-            res.json(rows[0]);
-            } else {
-              res.json([]);
-            }
+
+          res.json(rows);
       });
 });
 
@@ -208,6 +211,7 @@ app.post('/users/quizzes', (req, res) => {
   } else {
     queryString = `INSERT INTO mentees_scores (menteeID, quiz_type, score) VALUES (${userId}, '${type}', ${score})`;
   }
+  console.log(queryString);
   pool.query(queryString,
          function(err, rows, fields) {
           if (err) throw err;
@@ -285,21 +289,18 @@ app.post('/users', (req, res) => {
   pool.query(queryString,
          function(err, rows, fields) {
           if (err) throw err;
-          console.log(rows);
-
-          if (rows.length > 0){
-            res.json(
-              rows.map((entry) => {
-                const e = {};
-                COLUMNS.forEach((c) => {
-                  e[c] = entry[c];
-                });
-                console.log(e);
-                })
-              );
-            } else {
-              res.json([]);
-            }
+          
+          if (userType === 'MENTOR') {
+            dbSelectMentor(rows.insertId, function(err, result) {
+              if (err) throw err;
+              res.json(result);
+            })
+          } else if (userType === 'MENTEE') {
+            dbSelectMentee(rows.insertId, function(err, result) {
+              if (err) throw err;
+              res.json(result);
+            })
+          }
       });
 });
 

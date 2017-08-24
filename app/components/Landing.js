@@ -8,6 +8,7 @@ import {Grid, Row, Col} from 'react-bootstrap';
 
 // components
 import MenteeModal from './MenteeModal';
+import Youtube from './Youtube';
 import MentorModal from './MentorModal';
 import UserAuth from './UserAuth';
 
@@ -191,58 +192,16 @@ class Main extends React.Component {
 
                 <aside className="callout">
                     <div className="text-vertical-center">
+                    <img src="./img/be-a-mentor.jpg" alt="" useMap="#image-map" className="img-style"/>
                     </div>
                 </aside>
 
-                <section id="portfolio" className="portfolio">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-lg-10 col-lg-offset-1 text-center">
-                                <h2>Our Work</h2>
-                                <hr className="small" />
-                                <div className="row">
-                                    <div className="col-md-6">
-                                        <div className="portfolio-item">
-                                            <a href="#">
-                                                <img className="img-portfolio img-responsive" src="./img/portfolio-1.jpg" />
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-6">
-                                        <div className="portfolio-item">
-                                            <a href="#">
-                                                <img className="img-portfolio img-responsive" src="./img/portfolio-2.jpg"/>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-6">
-                                        <div className="portfolio-item">
-                                            <a href="#">
-                                                <img className="img-portfolio img-responsive" src="./img/portfolio-3.jpg"/>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-6">
-                                        <div className="portfolio-item">
-                                            <a href="#">
-                                                <img className="img-portfolio img-responsive" src="./img/portfolio-4.jpg"/>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="#" className="btn btn-dark">View More Items</a>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
+            
                 <aside className="call-to-action bg-primary">
                     <div className="container">
                         <div className="row">
                             <div className="col-lg-12 text-center">
-                                <h3>The buttons below are impossible to resist.</h3>
-                                <a href="#" className="btn btn-lg btn-light">Click Me!</a>
-                                <a href="#" className="btn btn-lg btn-dark">Look at Me!</a>
+                                <Youtube />
                             </div>
                         </div>
                     </div>

@@ -98,7 +98,7 @@ class CSharpQuiz extends React.Component {
             return (
                 <div id="container">
                     <header>
-                        <h1>Mentee C# Quiz</h1>
+                        <h1>C# Quiz</h1>
                     </header>
                     <section>
                         <div id="results"></div>
@@ -137,7 +137,6 @@ class CSharpQuiz extends React.Component {
                             <input type="submit" value="Submit Answers" />
                         </form>
                         <br/>
-                        <button>Back</button>
                     </section>
                 </div>
             );

@@ -98,7 +98,7 @@ class NodeQuiz extends React.Component {
             return (
                 <div id="container">
                     <header>
-                        <h1>Mentee Node Quiz</h1>
+                        <h1>Node Quiz</h1>
                     </header>
                     <section>
                         <div id="results"></div>

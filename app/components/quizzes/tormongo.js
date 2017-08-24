@@ -98,49 +98,48 @@ class MongoQuiz extends React.Component {
             return (
                 <div id="container">
                     <header>
-                        <h1>Mentor Mongo Quiz</h1>
+                        <h1>Mongo Quiz</h1>
                     </header>
                     <section>
                         <div id="results"></div>
                         <form className="quizForm" onSubmit={this.submitAnswers}>
                             <h3>1.Point out the correct statement</h3>
      
-                            <input type="radio" className="q1" value="a" id="q1a" />a.ObjectIds are small, likely unique, fast to generate, and ordered <br /> 
-                            <input type="radio" className="q1" value="b" id="q2a" />b.ObjectIds are large, likely unique, and ordered<br />
-                            <input type="radio" className="q1" value="c" id="q3a" />c.ObjectIds values consists of 18-byte<br />
-                            <input type="radio" className="q1" value="d" id="q4a" />d.None of the above<br />
+                            <input type="radio" className="q1" value="a" id="q1a" name="q1" onClick={this.saveA1}/>a.ObjectIds are small, likely unique, fast to generate, and ordered <br /> 
+                            <input type="radio" className="q1" value="b" id="q2a" name="q1" onClick={this.saveA1}/>b.ObjectIds are large, likely unique, and ordered<br />
+                            <input type="radio" className="q1" value="c" id="q3a" name="q1" onClick={this.saveA1}/>c.ObjectIds values consists of 18-byte<br />
+                            <input type="radio" className="q1" value="d" id="q4a" name="q1" onClick={this.saveA1}/>d.None of the above<br />
 
                             <h3>2.Which of the following data type is depreciated ? </h3>
-                            <input type="radio" className="q2" value="a" id="q1a" />a.Double<br /> 
-                            <input type="radio" className="q2" value="b" id="q2a" />b.String<br />
-                            <input type="radio" className="q2" value="a" id="q3a" />a.Object<br />
-                            <input type="radio" className="q2" value="a" id="q4a" />a.Undefined<br />
+                            <input type="radio" className="q2" value="a" id="q1a" name="q2" onClick={this.saveA2}/>a.Double<br /> 
+                            <input type="radio" className="q2" value="b" id="q2a" name="q2" onClick={this.saveA2}/>b.String<br />
+                            <input type="radio" className="q2" value="a" id="q3a" name="q2" onClick={this.saveA2}/>a.Object<br />
+                            <input type="radio" className="q2" value="a" id="q4a" name="q2" onClick={this.saveA2}/>a.Undefined<br />
                             
 
                             <h3>3.3.___________ is used to determine whether a query is a covered query </h3>
-                            <input type="radio" className="q3" value="a" id="q1a" />a.explainstats()<br />
+                            <input type="radio" className="q3" value="a" id="q1a" name="q3" onClick={this.saveA3}/>a.explainstats()<br />
      
-                            <input type="radio" className="q3" value="b" id="q2a" />b.explain()<br />
-                            <input type="radio" className="q3" value="a" id="q1a" />c.explainall()<br /> 
-                            <input type="radio" className="q3" value="a" id="q1a" />d.All of the above<br /> 
+                            <input type="radio" className="q3" value="b" id="q2a" name="q3" onClick={this.saveA3}/>b.explain()<br />
+                            <input type="radio" className="q3" value="a" id="q3a" name="q3" onClick={this.saveA3}/>c.explainall()<br /> 
+                            <input type="radio" className="q3" value="a" id="q4a" name="q3" onClick={this.saveA3}/>d.All of the above<br /> 
                             
 
                             <h3>4.Which of the following collection do not support the TTL property ?</h3>
-                            <input type="radio" className="q4" value="a" id="q1a" />a.Compound indexes<br /> 
-                            <input type="radio" className="q4" value="b" id="q2a" />b.Primary indexes<br />
-                            <input type="radio" className="q4" value="c" id="q3a" />c.Composite indexes<br />
-                            <input type="radio" className="q4" value="d" id="q4a" />d.All of the above<br />
+                            <input type="radio" className="q4" value="a" id="q1a" name="q4" onClick={this.saveA4}/>a.Compound indexes<br /> 
+                            <input type="radio" className="q4" value="b" id="q2a" name="q4" onClick={this.saveA4}/>b.Primary indexes<br />
+                            <input type="radio" className="q4" value="c" id="q3a" name="q4" onClick={this.saveA4}/>c.Composite indexes<br />
+                            <input type="radio" className="q4" value="d" id="q4a" name="q4" onClick={this.saveA4}/>d.All of the above<br />
 
                             <h3>5.If the indexed field in a document is not a _____ or an array that holds a date value(s), the document will not expire.</h3>
-                            <input type="radio" className="q5" value="a" id="q1a" />a.DATE<br /> 
-                            <input type="radio" className="q5" value="b" id="q2a" />b.TIME<br />
-                            <input type="radio" className="q5" value="c" id="q3a" />c.DATETIME<br />
-                            <input type="radio" className="q5" value="d" id="q4a" />d.None of the Above<br />
+                            <input type="radio" className="q5" value="a" id="q1a" name="q5" onClick={this.saveA5}/>a.DATE<br /> 
+                            <input type="radio" className="q5" value="b" id="q2a" name="q5" onClick={this.saveA5}/>b.TIME<br />
+                            <input type="radio" className="q5" value="c" id="q3a" name="q5" onClick={this.saveA5}/>c.DATETIME<br />
+                            <input type="radio" className="q5" value="d" id="q4a" name="q5" onClick={this.saveA5}/>d.None of the Above<br />
                             <br /><br />
                             <input type="submit" value="Submit Answers" />
                         </form>
                         <br/>
-                        <button>Back</button>
                     </section>
                 </div>
             );

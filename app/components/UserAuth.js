@@ -3,6 +3,12 @@ import React from 'react'; //import React, { Component } from 'react';//
 import Modal from 'react-modal';
 import axios from 'axios';
 
+const styles = {
+    overlay: {
+        background: 'rgba(0, 0, 0, 0.54)'
+    }
+};
+
 // props: user type, auth type (sign in or sign up)
 class UserAuth extends React.Component {
     constructor(props) {
@@ -49,6 +55,7 @@ class UserAuth extends React.Component {
 
     handleSignup(evt) {
         evt.preventDefault();
+        const me = this;
 
       if (!this.state.email || !this.state.password || !this.state.first || !this.state.last) return;
 
@@ -61,18 +68,19 @@ class UserAuth extends React.Component {
           })
           .then(function (response) {
             console.log(response);
+            me.props.setUser(response.data, me.props.userType);
           })
           .catch(function (error) {
             console.log(error);
           });
-    } 
+    }     
 
     handleLogin(evt) {
         const me = this;
         evt.preventDefault();
 
         if (!this.state.email.length || !this.state.password.length) return;
-
+        console.log(this.props.userType);
         axios.get('/users', {
             params: {
                 email: this.state.email,
@@ -82,7 +90,7 @@ class UserAuth extends React.Component {
           })
           .then(function (response) {
             console.log(response);
-            me.props.setUser(response.data);
+            me.props.setUser(response.data, me.props.userType);
           })
           .catch(function (error) {
             console.log(error);
@@ -158,6 +166,7 @@ class UserAuth extends React.Component {
 
         return (
             <Modal
+                style={styles}
                 isOpen={this.props.open}
                 contentLabel="Signup/Login">
                 <h4

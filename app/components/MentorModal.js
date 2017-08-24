@@ -9,6 +9,7 @@ import Home from './home';
 import NodeQuiz from './quizzes/tornode';
 import CSharpQuiz from './quizzes/torc';
 import MongoQuiz from './quizzes/tormongo';
+import JavaScript from './quizzes/torjscript';
 
 class MentorModal extends React.Component {      
     constructor(props)  {
@@ -20,7 +21,9 @@ class MentorModal extends React.Component {
         this.chooseNode = this.chooseNode.bind(this);
         this.chooseMongo = this.chooseMongo.bind(this);
         this.chooseCSharp = this.chooseCSharp.bind(this);
+        this.chooseJavaScript = this.chooseJavaScript.bind(this);
         this.displayQuiz = this.displayQuiz.bind(this);
+        this.finishQuiz = this.finishQuiz.bind(this);
     }
 
     chooseNode() {
@@ -44,26 +47,44 @@ class MentorModal extends React.Component {
         this.displayQuiz();
     }
 
+    chooseJavaScript() {
+        this.setState({
+            chosenTopic: 'JAVASCRIPT'
+        });
+        this.displayQuiz();
+    }
+
+
+
     displayQuiz() {
         this.setState({
-            showQuiz: true
+            showQuiz: !this.state.showQuiz
         });
+    }
+
+    finishQuiz(score, type) {
+        this.props.finishQuiz(score, type);
+        this.displayQuiz();
     }
 
     renderChoices() {
         return(
-            <div>
+            <div
+                className="quiz-choices">
                 Choices
                 <br/>
                 <button onClick={this.chooseNode}>
                     Node
                 </button>
-                <button>
+                <button onClick={this.chooseMongo}>
                     Mongo
                 </button>
-                <button>
+                <button onClick={this.chooseCSharp}>
                     C#
                 </button>
+                <button onClick={this.chooseJavaScript}>
+                    JScript
+                </button>    
             </div>                     
         );
     }    
@@ -72,18 +93,23 @@ class MentorModal extends React.Component {
         if (this.state.chosenTopic === 'NODE') {
             return (
                 <NodeQuiz 
-                    finishQuiz={this.props.finishQuiz} />
+                    finishQuiz={this.finishQuiz} />
             );
         } else if (this.state.chosenTopic === 'MONGO') {
             return (
                 <MongoQuiz 
-                    finishQuiz={this.props.finishQuiz} />
+                    finishQuiz={this.finishQuiz} />
             );
         } else if (this.state.chosenTopic === 'CSharp') {
             return (
                 <CSharpQuiz
-                    finishQuiz={this.props.finishQuiz} />
+                    finishQuiz={this.finishQuiz} />
             );
+        } else if (this.state.chosenTopic === 'JAVASCRIPT') {
+            return (
+                 <JavaScriptQuiz
+                    finishQuiz={this.finishQuiz} />
+           );
         }
     }  
         
@@ -104,7 +130,7 @@ class MentorModal extends React.Component {
                 {/* isThisValueTrue ? ifYesDoThis : OtherwiseDoThis */}
                 {/* if this.props.isAuth, render quiz, otherwise unAuth */}
                 {this.state.showQuiz ? quiz : choices}
-                <button onClick={this.props.close}>Back</button>
+                {this.state.showQuiz ? <button onClick={this.displayQuiz}>Back</button> : null }
             </Modal>
 
             

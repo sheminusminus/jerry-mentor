@@ -99,7 +99,7 @@ class MongoQuiz extends React.Component {
             return (
                 <div id="container">
                     <header>
-                        <h1>Mentee Mongo Quiz</h1>
+                        <h1>Mongo Quiz</h1>
                     </header>
                     <section>
                         <div id="results"></div>
@@ -138,7 +138,6 @@ class MongoQuiz extends React.Component {
                             <input type="submit" value="Submit Answers" />
                         </form>
                         <br/>
-                        <button>Back</button>
                     </section>
                 </div>
             );
