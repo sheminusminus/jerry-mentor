@@ -63,6 +63,18 @@ function dbSelectMentee(id, cb) {
   pool.query(queryString, cb);
 }
 
+function dbSelectMenteeScores(id, cb) {
+  const queryString = `SELECT * FROM mentees_scores WHERE menteeID=${id}`;
+
+  pool.query(queryString, cb);
+}
+
+function dbSelectMentorScores(id, cb) {
+  const queryString = `SELECT * FROM mentors_scores WHERE mentorID=${id}`;
+
+  pool.query(queryString, cb);
+}
+
 app.get('/api/books', (req, res) => {
 
   const firstName = req.query.firstName;
@@ -171,6 +183,21 @@ app.get('/mentees', (req, res) => {
       });
 });
 
+app.get('/users/:userId/quizzes', (req, res) => {
+  const userId = req.params.userId;
+  const userType = req.query.type || 'MENTEE';
+
+  if (userType === 'MENTOR') {
+    dbSelectMentorScores(userId, (err, results) => {
+      res.json(results);
+    })
+  } else if (userType === 'MENTEE') {
+    dbSelectMenteeScores(userId, (err, results) => {
+      res.json(results);
+    })
+  }
+});
+
 app.get('/users', (req, res) => {
   const email = req.query.email;
   const password = req.query.password;
@@ -195,11 +222,6 @@ app.get('/users', (req, res) => {
 // to update user data
 app.post('/users/quizzes', (req, res) => {
   const userId = req.body.userId;
-  // then get the data you wanna update from the request body
-  // const first = req.body.first || '';
-  // const last = req.body.last || '';
-  // const email = req.body.email;
-  // const password = req.body.password;
   const userType = req.body.userType || 'MENTEE';
   const score = req.body.score;
   const type = req.body.type;
@@ -215,21 +237,18 @@ app.post('/users/quizzes', (req, res) => {
   pool.query(queryString,
          function(err, rows, fields) {
           if (err) throw err;
-          console.log(rows);
 
-          if (rows.length > 0){
-            res.json(
-              rows.map((entry) => {
-                const e = {};
-                COLUMNS.forEach((c) => {
-                  e[c] = entry[c];
-                });
-                console.log(e);
-                })
-              );
-            } else {
-              res.json([]);
-            }
+          const id = rows.insertId;
+
+          if (userType === 'MENTOR') {
+            dbSelectMentorScores(userId, (err, result) => {
+              res.json(result);
+            });
+          } else if (userType === 'MENTEE') {
+            dbSelectMenteeScores(userId, (err, result) => {
+              res.json(result);
+            });
+          }
       });
 });
 

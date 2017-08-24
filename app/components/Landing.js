@@ -109,8 +109,8 @@ class Main extends React.Component {
                             <area target="" alt="" title="" href="" coords="353,390,83" shape="circle"/>
                             <area target="" alt="" title="" href="" coords="894,386,78" shape="circle"/>
                         </map>
-                       <button className="mentor-img-left" onClick={this.toggleMenteeAuthFlow} />
-                       <button className="mentor-img-right" onClick={this.toggleMentorAuthFlow} />
+                       <button className="mentor-img-left" onClick={this.toggleMentorAuthFlow} />
+                       <button className="mentor-img-right" onClick={this.toggleMenteeAuthFlow} />
                     </div>
                 </header>
 
@@ -257,11 +257,15 @@ class Main extends React.Component {
                 
 
                 <MentorModal
+                    userData={this.props.userData}
+                    quizScores={this.props.quizScores}
                     close={this.toggleUserModal}
                     finishQuiz={this.props.finishQuiz}
                     isOpen={this.state.userModalOpen && this.props.isAuthenticated && this.state.userType === 'MENTOR'} />
 
                 <MenteeModal
+                    userData={this.props.userData}
+                    quizScores={this.props.quizScores}
                     close={this.toggleUserModal}
                     finishQuiz={this.props.finishQuiz}
                     isOpen={this.state.userModalOpen && this.props.isAuthenticated && this.state.userType === 'MENTEE'} />

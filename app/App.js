@@ -12,10 +12,11 @@ class App extends React.Component {
         this.state={
             isAuthenticated: false,
             userType: '',
-            userData: {},
+            userData: [],
             userId: null,
             quizScores: []
         };
+        this.getPreviousScores = this.getPreviousScores.bind(this);
         this.setUser = this.setUser.bind(this);
         this.setAuth = this.setAuth.bind(this);
         this.finishQuiz = this.finishQuiz.bind(this);
@@ -23,12 +24,9 @@ class App extends React.Component {
     }
 
     finishQuiz(score, type) {
-        console.log('finish quiz', score, type);
         const me = this;
         const idKey = this.state.userType.toLowerCase() + 'ID';
-        console.log(idKey);
-        console.log(this.state.userData[0]);
-        console.log(this.state.userData[0][idKey]);
+
         axios.post('/users/quizzes', {
             type: type,
             score: score,
@@ -36,16 +34,28 @@ class App extends React.Component {
             userType: this.state.userType
           })
           .then(function (response) {
-            console.log(response);
+            if (response.data && response.data.length) {
+                const scores = [];
+                for (let i = 0; i < response.data.length; i++) {
+                    const quiz = response.data[i];
+                    scores.push({
+                      score: quiz.score,
+                      type: quiz.type
+                    });
+                }
+                me.setState({
+                  quizScores: scores
+                });
+            }
           })
           .catch(function (error) {
             console.log(error);
           });
-        let scores = this.state.quizScores;
-        scores.push({type: type, score: score});
-        this.setState({
-            quizScores: scores
-        });
+        // let scores = this.state.quizScores;
+        // scores.push({type: type, score: score});
+        // this.setState({
+        //     quizScores: scores
+        // });
     }
 
     checkUser() {
@@ -79,13 +89,42 @@ class App extends React.Component {
         //localStorage.setItem('userType', userData.menteeID ? 'MENTEE' : 'MENTOR');
         // localStorage.setItem('userId', userData.menteeID != null ? userData.menteeID : userData.mentorID);
         this.setState({
+            isAuthenticated: true,
             userData: userData,
             userType: type,
             userId: userData.menteeID ? userData.menteeID : userData.mentorID
         }, () => {
-            this.setState({
-                isAuthenticated: true
+            this.getPreviousScores(type);
+        });
+    }
+
+    getPreviousScores(type) {
+        const me = this;
+        const idKey = this.state.userType.toLowerCase() + 'ID';
+        const userId = this.state.userData[0][idKey];
+        axios.get(`/users/${userId}/quizzes`, {
+            params: {
+                type,
+            }
+        })
+        .then(function (response) {
+          console.log(response);
+          if (response.data && response.data.length) {
+            const scores = [];
+            for (let i = 0; i < response.data.length; i++) {
+              const quiz = response.data[i];
+              scores.push({
+                score: quiz.score,
+                type: quiz.type
+              });
+            }
+            me.setState({
+              quizScores: scores
             });
+          }
+        })
+        .catch(function (error) {
+            console.log(error);
         });
     }
 
@@ -99,6 +138,7 @@ class App extends React.Component {
 
         return(
             <Landing
+                quizScores={this.state.quizScores}
                 finishQuiz={this.finishQuiz}
                 setUser={this.setUser} 
                 userData={this.state.userData}

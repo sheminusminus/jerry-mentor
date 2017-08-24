@@ -1,9 +1,36 @@
+.quiz-choices {
+    margin-top: 20px;
+}
+
 .quiz-choices button {
     border-radius: 10px; 
     padding: 10px;
     font-size: 15px;
     border-style: none;
     background-color: #34495e;
-    margin: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
     color: #fff;
+    margin-bottom: 20px;
+}
+
+.quiz-choices button:disabled {
+    background-color: salmon;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.quiz-choices h3 {
+    margin-bottom: 20px;
+}
+
+.ReactModal__Content table {
+    border-collapse: separate;
+    border-spacing: 2px;
+}
+
+.ReactModal__Content table td, .ReactModal__Content table th {
+    padding: 5px 12px;
+    min-width: 140px;
+    border: 2px solid grey;
 }

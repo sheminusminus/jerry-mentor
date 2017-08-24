@@ -140,10 +140,9 @@ class NodeQuiz extends React.Component {
             );
         } else {
             return (
-                <div>You scored {this.state.totalScore}.
-                    <br/>
-                    <button onClick={this.finishQuiz}>Okay</button>
-                </div>
+              <div>
+                  You scored {this.state.totalScore}.
+              </div>
             );
         }
     }  
